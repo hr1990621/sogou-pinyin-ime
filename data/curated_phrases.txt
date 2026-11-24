@@ -1,0 +1,216 @@
+# Curated modern daily sentences, tech/internet terms & contextual collocations
+# Format:
+# [PHRASES] word<TAB>pinyin<TAB>weight
+# [COLLOCATIONS] prev_word<TAB>next_word<TAB>weight
+
+[PHRASES]
+今天天气真好	jin tian tian qi zhen hao	28000
+今天天气不错	jin tian tian qi bu cuo	24000
+今天天气怎么样	jin tian tian qi zen me yang	22000
+今天下午开会	jin tian xia wu kai hui	20000
+今天晚上吃什么	jin tian wan shang chi shen me	21000
+明天上午开会	ming tian shang wu kai hui	19000
+明天见	ming tian jian	25000
+人工智能	ren gong zhi neng	50000
+人工智能大模型	ren gong zhi neng da mo xing	24000
+大语言模型	da yu yan mo xing	26000
+机器学习	ji qi xue xi	32000
+深度学习	shen du xue xi	32000
+自然语言处理	zi ran yu yan chu li	22000
+搜狗输入法	sou gou shu ru fa	35000
+中文拼音输入法	zhong wen pin yin shu ru fa	25000
+自动补全	zi dong bu quan	30000
+记忆功能	ji yi gong neng	26000
+智能联想	zhi neng lian xiang	24000
+百度网盘	bai du wang pan	30000
+微信支付	wei xin zhi fu	32000
+支付宝	zhi fu bao	38000
+你好世界	ni hao shi jie	28000
+早上好	zao shang hao	35000
+晚上好	wan shang hao	34000
+下午好	xia wu hao	30000
+不好意思	bu hao yi si	45000
+没关系	mei guan xi	42000
+没问题	mei wen ti	45000
+非常感谢	fei chang gan xie	38000
+谢谢你	xie xie ni	40000
+麻烦帮我看一下	ma fan bang wo kan yi xia	20000
+稍等一下	shao deng yi xia	28000
+请稍等	qing shao deng	26000
+马上就来	ma shang jiu lai	24000
+正在处理中	zheng zai chu li zhong	22000
+祝你工作顺利	zhu ni gong zuo shun li	22000
+祝你身体健康	zhu ni shen ti jian kang	22000
+周末愉快	zhou mo yu kuai	26000
+新年快乐	xin nian kuai le	30000
+生日快乐	sheng ri kuai le	32000
+一路顺风	yi lu shun feng	24000
+万事如意	wan shi ru yi	24000
+心想事成	xin xiang shi cheng	24000
+身体健康	shen ti jian kang	30000
+工作顺利	gong zuo shun li	28000
+一举两得	yi ju liang de	22000
+一帆风顺	yi fan feng shun	26000
+实事求是	shi shi qiu shi	26000
+循序渐进	xun xu jian jin	24000
+水到渠成	shui dao qu cheng	24000
+得心应手	de xin ying shou	22000
+游刃有余	you ren you yu	22000
+云计算	yun ji suan	30000
+大数据	da shu ju	32000
+数据库	shu ju ku	36000
+编程语言	bian cheng yu yan	26000
+数据结构	shu ju jie gou	28000
+操作系统	cao zuo xi tong	32000
+前端开发	qian duan kai fa	26000
+后端开发	hou duan kai fa	26000
+全栈开发	quan zhan kai fa	22000
+开源项目	kai yuan xiang mu	28000
+软件工程	ruan jian gong cheng	26000
+用户体验	yong hu ti yan	32000
+性能优化	xing neng you hua	28000
+系统架构	xi tong jia gou	26000
+代码审查	dai ma shen cha	22000
+自动化测试	zi dong hua ce shi	22000
+新能源汽车	xin neng yuan qi che	28000
+高质量发展	gao zhi liang fa zhan	26000
+数字经济	shu zi jing ji	25000
+智能手机	zhi neng shou ji	32000
+笔记本电脑	bi ji ben dian nao	28000
+机械键盘	ji xie jian pan	24000
+无线耳机	wu xian er ji	22000
+快递单号	kuai di dan hao	24000
+外卖小哥	wai mai xiao ge	24000
+喝一杯咖啡	he yi bei ka fei	18000
+一起去吃饭	yi qi qu chi fan	22000
+我们一起去吃饭	wo men yi qi qu chi fan	20000
+周末去哪里玩	zhou mo qu na li wan	18000
+最近怎么样	zui jin zen me yang	24000
+好久不见	hao jiu bu jian	32000
+有空一起吃饭	you kong yi qi chi fan	20000
+注意安全	zhu yi an quan	28000
+早点休息	zao dian xiu xi	28000
+多喝热水	duo he re shui	25000
+保重身体	bao zhong shen ti	26000
+收到谢谢	shou dao xie xie	28000
+好的收到	hao de shou dao	28000
+好的没问题	hao de mei wen ti	28000
+明白了	ming bai le	30000
+知道了	zhi dao le	32000
+太棒了	tai bang le	30000
+太好了	tai hao le	32000
+真的吗	zhen de ma	30000
+为什么	wei shen me	48000
+怎么样	zen me yang	46000
+什么时候	shen me shi hou	38000
+在哪里	zai na li	34000
+多少钱	duo shao qian	34000
+
+[COLLOCATIONS]
+今天	天气真好	95
+今天	天气	90
+今天	下午	80
+今天	晚上	78
+今天	上午	72
+今天	怎么样	65
+今天天	气真好	110
+今天天	气不错	95
+今天天	气怎么样	88
+今天天气	真好	120
+今天天气	不错	105
+今天天气	怎么样	95
+明天	上午	85
+明天	下午	80
+明天	开会	75
+明天	见	70
+明天	天气	65
+人工	智能	120
+人工	成本	75
+人工	客服	72
+人工	干预	65
+人工智能	大模型	100
+人工智能	技术	90
+人工智能	时代	85
+人工智能	应用	80
+搜狗	输入法	120
+搜狗	搜索	80
+搜狗	浏览器	75
+中文	输入法	100
+中文	拼音	95
+中文	分词	75
+拼音	输入法	115
+拼音	切分	80
+自动	补全	110
+自动	驾驶	95
+自动	化	85
+自动	保存	80
+百度	网盘	115
+百度	搜索	90
+百度	地图	85
+微信	支付	105
+微信	小程序	90
+微信	公众号	85
+我们	一起	95
+我们	可以	90
+我们	公司	82
+我们	现在	78
+一起	去吃饭	95
+一起	去	85
+一起	讨论	75
+一起	加油	72
+不好	意思	120
+非常	感谢	115
+非常	高兴	90
+非常	好	88
+非常	不错	85
+非常	重要	82
+没	问题	110
+没	关系	105
+没	想到	80
+好的	收到	100
+好的	没问题	98
+好的	谢谢	90
+收到	谢谢	95
+麻烦	帮我看一下	95
+麻烦	你了	90
+麻烦	发一下	82
+稍等	一下	115
+请问	一下	105
+请问	您	85
+祝你	工作顺利	100
+祝你	身体健康	95
+祝你	生日快乐	90
+祝你	周末愉快	88
+工作	顺利	105
+工作	效率	85
+工作	愉快	82
+身体	健康	115
+机器	学习	115
+深度	学习	115
+自然	语言处理	105
+数据	库	105
+数据	结构	95
+数据	分析	92
+操作	系统	115
+性能	优化	110
+用户	体验	110
+开源	项目	105
+代码	审查	95
+软件	工程	105
+中国	人民	95
+中国	大陆	85
+中国	经济	82
+中国	文化	80
+北京	时间	100
+北京	大学	95
+上海	交通大学	85
+你好	世界	90
+你好	请问	85
+好久	不见	120
+早点	休息	110
+注意	安全	110
+多喝	热水	100
+什么时候	回来	85
+什么时候	开始	88
+什么时候	有空	82
+怎么样	了	80

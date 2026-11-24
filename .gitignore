@@ -1,0 +1,21 @@
+# Python bytecode & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Generated dictionary DB (auto-built on first run or via `python scripts/build_dict.py`)
+data/ime_dict.db
+
+# Local user typing memory (runtime personal data)
+data/user_memory.db
+data/user_memory.db-shm
+data/user_memory.db-wal
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

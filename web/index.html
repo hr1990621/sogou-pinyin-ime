@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="classic">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>搜影拼音输入法 · 智能补全与记忆引擎</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="brand">
+        <div class="brand-logo">搜</div>
+        <div class="brand-info">
+          <h1>搜影拼音输入法 <span class="version-pill">Sogou-Style IME</span></h1>
+          <p class="subtitle">55万+ 现代汉语词库 · Viterbi 整句切分 · 上下文自动补全 · SQLite 持久化记忆</p>
+        </div>
+      </div>
+      <div class="header-stats" id="headerStats">
+        <span class="stat-chip">词库 <strong id="statDictCount">--</strong></span>
+        <span class="stat-chip">记忆 <strong id="statMemCount">0</strong> 词</span>
+        <span class="stat-chip">联想对 <strong id="statBigramCount">0</strong></span>
+        <span class="stat-chip latency-chip">延迟 <strong id="statLatency">--</strong> ms</span>
+      </div>
+    </header>
+
+    <!-- Main 2-column Workspace -->
+    <main class="workspace">
+      <!-- Left: Typing Area + Floating Sogou Candidate Box + Status Bar -->
+      <section class="editor-section">
+        <!-- Quick Demo Bar -->
+        <div class="demo-bar">
+          <span class="demo-label">快捷体验：</span>
+          <button class="demo-btn" data-demo="sentence">整句输入 <code>woxiangqubeijinglvyou</code></button>
+          <button class="demo-btn" data-demo="jianpin">简拼补全 <code>jttq</code></button>
+          <button class="demo-btn" data-demo="prefix">前缀补全 <code>zhongg</code></button>
+          <button class="demo-btn" data-demo="context">上下文补全 <code>今天天 → Tab</code></button>
+          <button class="demo-btn" data-demo="learn">新造词记忆 <code>mayiyinli</code></button>
+          <button class="demo-btn demo-clear" id="btnClearEditor">清空画布</button>
+        </div>
+
+        <!-- Writing Canvas with Ghost-Text Overlay -->
+        <div class="editor-card" id="editorCard">
+          <div class="editor-stage" id="editorStage">
+            <!-- Mirror layer renders exact text + inline Ghost Text completion -->
+            <div class="editor-mirror" id="editorMirror" aria-hidden="true"></div>
+            <textarea
+              id="editorInput"
+              class="editor-textarea"
+              spellcheck="false"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              placeholder="在这里直接用键盘敲拼音试试（如：jintiantianqizhenhao、rgzn、zhongg）...&#10;&#10;💡 快捷键：空格/1-5 选词 · Tab 采纳灰色自动补全 · -/= 翻页 · Shift 切换中英文 · Enter 上屏英文"
+            ></textarea>
+
+            <!-- Sogou-Style Floating Candidate Window -->
+            <div class="ime-popup hidden" id="imePopup" role="listbox" aria-label="输入法候选框">
+              <div class="ime-popup-header">
+                <div class="ime-composition">
+                  <span class="ime-mode-badge hidden" id="imeAssocBadge">联想</span>
+                  <span class="ime-pending-cn" id="imePendingCn"></span>
+                  <span class="ime-pinyin-text" id="imePinyinText"></span>
+                </div>
+                <div class="ime-header-right">
+                  <span class="ime-ghost-preview hidden" id="imeGhostHint"></span>
+                  <span class="ime-latency" id="imeLatency"></span>
+                </div>
+              </div>
+              <div class="ime-popup-body">
+                <div class="ime-candidates" id="imeCandidates"></div>
+                <div class="ime-pager" id="imePager">
+                  <button class="pager-btn" id="btnPrevPage" title="上一页 (-)">‹</button>
+                  <span class="pager-info" id="pagerInfo">1/1</span>
+                  <button class="pager-btn" id="btnNextPage" title="下一页 (=)">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ghost Text Hint Bar -->
+          <div class="editor-footer">
+            <div class="ghost-status" id="ghostStatus">
+              <span class="ghost-dot"></span>
+              <span id="ghostStatusText">就绪 · 输入拼音开始体验搜狗风格智能补全与记忆</span>
+            </div>
+            <div class="char-counter">
+              已输入 <strong id="charCount">0</strong> 字
+            </div>
+          </div>
+
+          <!-- Sogou-Style Floating Status Bar -->
+          <div class="sogou-statusbar" id="sogouStatusBar">
+            <div class="sb-logo" title="搜影拼音">S</div>
+            <button class="sb-btn active" id="btnToggleLang" title="轻按 Shift 切换中/英文">中</button>
+            <button class="sb-btn active" id="btnTogglePunct" title="切换中文全角/英文半角标点">。，</button>
+            <span class="sb-divider"></span>
+            <button class="sb-btn active" id="btnToggleAuto" title="开启/关闭自动补全与上下文联想">补全</button>
+            <button class="sb-btn active" id="btnToggleMem" title="开启/关闭词频记忆与新造词学习">记忆</button>
+            <span class="sb-divider"></span>
+            <div class="sb-themes" title="切换输入法皮肤">
+              <button class="theme-dot active" data-theme-pick="classic" style="--dot:#ff6b00" title="经典白"></button>
+              <button class="theme-dot" data-theme-pick="aurora" style="--dot:#2563eb" title="极光蓝"></button>
+              <button class="theme-dot" data-theme-pick="dark" style="--dot:#1e293b" title="暗夜黑"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keyboard Shortcut Cheat Sheet -->
+        <div class="shortcut-strip">
+          <span><kbd>a-z</kbd> 拼音输入</span>
+          <span><kbd>Space</kbd> / <kbd>1-5</kbd> 选词上屏</span>
+          <span><kbd>Tab</kbd> 采纳幽灵补全</span>
+          <span><kbd>-</kbd> <kbd>=</kbd> 翻页</span>
+          <span><kbd>Shift</kbd> 中英切换</span>
+          <span><kbd>Enter</kbd> 上屏原字母</span>
+          <span><kbd>'</kbd> 隔音符 (如 xi'an)</span>
+          <span><kbd>Esc</kbd> 取消</span>
+        </div>
+      </section>
+
+      <!-- Right: Engine Inspector & Memory Center -->
+      <aside class="inspector-section">
+        <div class="panel-tabs">
+          <button class="panel-tab active" data-tab="inspector">🔍 算法透视</button>
+          <button class="panel-tab" data-tab="memory">🧠 记忆中心</button>
+        </div>
+
+        <!-- Tab 1: Real-time Engine Inspector -->
+        <div class="panel-content active" id="tabInspector">
+          <div class="card">
+            <h3>拼音切分路径</h3>
+            <div class="seg-chips" id="segChips">
+              <span class="empty-hint">输入拼音后实时显示切分方案...</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Top 候选评分拆解</h3>
+            <div class="score-list" id="scoreList">
+              <span class="empty-hint">实时展示基础词库分、记忆加权与上下文联想分</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>实时学习动态</h3>
+            <ul class="event-feed" id="eventFeed">
+              <li class="empty-hint">选词上屏后，词频提权、自动新造词和上下文联想学习将在此实时播报</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab 2: Persistent Memory Management -->
+        <div class="panel-content" id="tabMemory">
+          <div class="card">
+            <h3>手动添加自定义词条</h3>
+            <form class="add-word-form" id="addWordForm">
+              <input type="text" id="customWord" placeholder="词条，如：搜影输入法" required />
+              <input type="text" id="customPinyin" placeholder="空格拼音，如：sou ying shu ru fa" required />
+              <button type="submit" class="btn-primary">写入记忆库</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header-row">
+              <h3>已学习词汇 & 新造词 (<span id="memWordCount">0</span>)</h3>
+              <div class="card-actions">
+                <a class="btn-link" href="/api/memory/export" download>导出JSON</a>
+                <button class="btn-danger-sm" id="btnClearMemory">清空记忆</button>
+              </div>
+            </div>
+            <div class="mem-list" id="memWordsList">
+              <span class="empty-hint">暂无用户记忆词条</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>上下文联想记忆 (<span id="memBigramCount">0</span>)</h3>
+            <div class="mem-list" id="memBigramsList">
+              <span class="empty-hint">连续输入词语后，会自动记住「前词 → 后词」搭配</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
